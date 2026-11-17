@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flynn's World Flag Morph & Size Explorer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-icon">🌍</div>
+      <div>
+        <h1>Flynn's Flag Morph &amp; World Size Game</h1>
+        <div class="brand-subtitle">Morphing Country Flags • Guessing Quiz • True-Size Country Comparison</div>
+      </div>
+    </div>
+
+    <nav class="nav-tabs" aria-label="Game Sections">
+      <button class="nav-tab active" data-tab="panel-quiz">🎯 Flag Morph Quiz</button>
+      <button class="nav-tab" data-tab="panel-lab">✨ Flag Morph Studio</button>
+      <button class="nav-tab" data-tab="panel-size">📏 Country Size Compare</button>
+    </nav>
+
+    <div class="header-tools">
+      <button class="icon-btn" id="toggle-sound-btn">🔊 Sound: ON</button>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="main-container">
+
+    <!-- ==========================================
+         TAB 1: FLAG MORPH QUIZ & GUESSING GAME
+         ========================================== -->
+    <section id="panel-quiz" class="tab-panel active">
+      <div class="quiz-header-bar">
+        <div class="quiz-mode-pills">
+          <button class="mode-pill active" data-mode="morph-target">🔄 Watch It Morph! (Guess Target)</button>
+          <button class="mode-pill" data-mode="halfway-blend">🧬 50/50 Flag Blend Puzzle</button>
+          <button class="mode-pill" data-mode="size-showdown">📐 Size Showdown: Which Is Bigger?</button>
+        </div>
+        <div class="score-badges">
+          <div class="score-badge streak">🔥 Streak: <span id="quiz-streak-val">0</span></div>
+          <div class="score-badge points">⭐ Score: <span id="quiz-score-val">0</span></div>
+        </div>
+      </div>
+
+      <div class="quiz-arena">
+        <!-- Left: Live Vector Flag Morph Viewport -->
+        <div class="stage-card">
+          <div class="stage-status-row">
+            <span class="country-pill" id="quiz-from-pill">Start: United States</span>
+            <span style="color:var(--text-muted); font-weight:800;">➔</span>
+            <span class="country-pill mystery" id="quiz-to-pill">Target: ??? Mystery Flag</span>
+          </div>
+
+          <div class="flag-viewport" id="quiz-flag-stage"></div>
+
+          <div class="morph-progress-wrap">
+            <div class="morph-progress-labels">
+              <span>Start Flag (0%)</span>
+              <span id="quiz-morph-percent">0% Morphed</span>
+              <span>Target Flag (100%)</span>
+            </div>
+            <input type="range" min="0" max="100" value="0" class="morph-slider" id="quiz-morph-slider" title="Drag to scrub the flag morph back and forth!" />
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+              <span style="font-size:0.8rem; color:var(--text-muted);">💡 Tip: Drag the slider anytime to inspect how the shapes morph!</span>
+              <button class="icon-btn" id="quiz-replay-btn">↻ Replay Morph</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Question & 4 Visual Country Choices -->
+        <div class="quiz-controls-panel">
+          <div>
+            <h2 class="quiz-prompt-title" id="quiz-prompt-title">Which country's flag is this morphing into?</h2>
+            <div class="quiz-hint-box" id="quiz-hint-box" style="margin-top:12px;">
+              Watch the stripes and emblems shift shape and color!
+            </div>
+          </div>
+
+          <div class="quiz-options-grid" id="quiz-options-grid"></div>
+
+          <div class="quiz-feedback-banner">
+            <div id="quiz-feedback-text" style="font-size:0.95rem; line-height:1.35;">
+              Pick an answer above!
+            </div>
+            <button class="primary-action-btn" id="quiz-next-btn">Next Flag ➔</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TAB 2: INTERACTIVE FLAG MORPH STUDIO (LAB)
+         ========================================== -->
+    <section id="panel-lab" class="tab-panel">
+      <div class="explorer-top-grid">
+        <div class="stage-card">
+          <div class="selector-row">
+            <select id="lab-select-a" class="country-select" aria-label="Start Country"></select>
+            <button class="icon-btn" id="lab-swap-btn" title="Swap Countries">⇄ Swap</button>
+            <select id="lab-select-b" class="country-select" aria-label="Target Country"></select>
+          </div>
+
+          <div class="flag-viewport" id="lab-flag-stage"></div>
+
+          <div class="morph-progress-wrap">
+            <div class="morph-progress-labels">
+              <span>Flag A (0%)</span>
+              <span id="lab-morph-percent">0%</span>
+              <span>Flag B (100%)</span>
+            </div>
+            <input type="range" min="0" max="100" value="0" class="morph-slider" id="lab-morph-slider" />
+          </div>
+
+          <div class="morph-controls-bar">
+            <div class="style-selector">
+              <button class="style-chip active" data-style="shape">Shape &amp; Stripe Morph</button>
+              <button class="style-chip" data-style="wave">Liquid Wave Morph</button>
+              <button class="style-chip" data-style="tiles">Staggered Cascade</button>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button class="icon-btn" id="lab-random-btn">🎲 Random Pair</button>
+              <button class="icon-btn" id="lab-autotour-btn">▶ Auto-Morph Tour</button>
+              <button class="primary-action-btn" id="lab-play-btn">Morph Now ✨</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="quiz-controls-panel">
+          <div>
+            <h2 style="font-size:1.25rem; font-weight:800; margin-bottom:12px;">Country Spotlight</h2>
+            <div id="lab-country-info"></div>
+          </div>
+
+          <div style="background:var(--bg-surface); padding:16px; border-radius:14px; border:1px solid var(--border-color);">
+            <h3 style="font-size:1rem; margin-bottom:6px; color:var(--accent-amber);">🎮 How Flag Morphing Works</h3>
+            <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.45;">
+              Click any flag in the gallery below to smoothly morph the current flag into that country, or drag the <strong>Morph Slider</strong> back and forth to freeze the transition halfway!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flag-gallery-section">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <h3 style="font-size:1.1rem; font-weight:800;">
+            Click Any Flag Below to Morph Into It (<span id="gallery-count-label">197</span> Countries):
+          </h3>
+          <input type="text" id="lab-search-input" class="search-input" placeholder="🔍 Search 197 countries..." />
+        </div>
+        <div class="gallery-toolbar">
+          <div class="continent-pills" id="lab-continent-pills">
+            <button class="continent-pill active" data-continent="all">🌍 All World (197)</button>
+            <button class="continent-pill" data-continent="North America">🌎 North America</button>
+            <button class="continent-pill" data-continent="South America">🌎 South America</button>
+            <button class="continent-pill" data-continent="Europe">🌍 Europe</button>
+            <button class="continent-pill" data-continent="Asia">🌏 Asia</button>
+            <button class="continent-pill" data-continent="Africa">🌍 Africa</button>
+            <button class="continent-pill" data-continent="Oceania">🌏 Oceania</button>
+          </div>
+        </div>
+        <div class="flag-gallery-grid" id="lab-gallery-grid"></div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TAB 3: COUNTRY SIZE COMPARISON STUDIO
+         ========================================== -->
+    <section id="panel-size" class="tab-panel">
+      <div class="size-compare-layout">
+        <div class="stage-card">
+          <div class="selector-row">
+            <select id="size-select-a" class="country-select" aria-label="First Country"></select>
+            <span style="font-weight:800; color:var(--text-muted);">VS</span>
+            <select id="size-select-b" class="country-select" aria-label="Second Country"></select>
+          </div>
+
+          <div class="size-canvas-box">
+            <div class="size-grid-lines"></div>
+            <svg id="size-compare-svg" viewBox="0 0 640 410" style="width:100%; height:100%; position:relative; z-index:2;"></svg>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; flex-wrap:wrap; gap:10px;">
+            <span style="font-size:0.85rem; color:var(--text-muted);">
+              📐 Scaled by true land area (km²) — no Mercator map distortion!
+            </span>
+            <div style="display:flex; gap:8px;">
+              <button class="icon-btn" id="size-speak-btn">🔊 Read Comparison</button>
+              <button class="primary-action-btn" id="size-overlay-toggle">重ね Overlay Shapes on Top of Each Other</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="quiz-controls-panel">
+          <div>
+            <div class="ratio-callout-card" id="size-ratio-callout"></div>
+            <h3 style="font-size:0.95rem; font-weight:800; color:var(--text-muted);">
+              Visualizing How Many Fit Inside:
+            </h3>
+            <div class="fits-inside-mini-grid" id="size-fits-grid"></div>
+          </div>
+
+          <div class="size-ladder-card" style="padding:14px;">
+            <h3 style="font-size:1rem; font-weight:800;">🏆 World Size Ranking (Click any country to compare)</h3>
+            <div class="ladder-bars" id="size-ladder-bars"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="countries-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
